@@ -1,5 +1,10 @@
 ambado.app(
   {"title": "Hello Fruit!"}
+).require(
+  { url: 'js/local.js' },
+  function() {
+    console.log("after load");
+  }
 ).ui(
   {
     nodeType: "content",
@@ -20,10 +25,7 @@ ambado.app(
 	    "id": "ok", 
 	    "nodeType": "button", 
 	    elements: [ 
-	      { "tip": "Type your name", "label": "Ok" } 
-	    ], 
-	    operations: [
-	      'onclick': function() { alert("hello " + $('#name').text()); }
+	      { "tip": "Type your name", "label": "Ok", "onclick": "okOnclick()" } 
 	    ] 
 	  }
         ]

@@ -12,7 +12,6 @@ basket.require(
   { url: 'css/bootstrap.min.css', execute: false },
   { url: 'css/bootstrap-theme.min.css', execute: false },
   { url: 'js/jquery.js' },
-  { url: 'js/angular.min.js' }, 
   { url: 'js/bootstrap.min.js' }
 ).then(function() {
    $('head').append( $('<style type="text/css" />').append(basket.get('css/bootstrap.min.css').data) );
@@ -62,12 +61,24 @@ basket.require(
      },
 
      _uiHandler_Button: function(uiParams, id, parentID, obj) {
-       $('#' + parentID).html($('#' + parentID).html() + ' <button type="button" class="btn btn-default" id="' + id + '">' + uiParams["label"] + '</button>');
+       $('#' + parentID).html($('#' + parentID).html() 
+                                   + ' <button type="button" class="btn btn-default" id="' + id + '" onclick="' + uiParams["onclick"]
+				   + '" >' + uiParams["label"] + '</button>');
      },
 
      _uiGenerator: function(uiParams) {
        this._handler(uiParams["nodeType"])(uiParams["elements"], uiParams["id"], this);
      }, 
+
+     require: function(libs, afterLoad) {
+       if (typeof(afterLoad) != 'undefined') {
+         basket.require(libs).then(function() { afterLoad() });
+       } else {
+         basket.require(libs);
+       } // end if
+
+       return this;
+     },
 
      app: function(params) {
        if (typeof(params["title"]) != 'undefined') { 
