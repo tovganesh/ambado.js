@@ -9,6 +9,6 @@ The project uses basket.js (http://addyosmani.github.io/basket.js/) to aggresive
 Further, a simple JSON style API allows to quiclky build simple applications.
 
 To try out the sample in tests directory, you need to use NodeJs (and express):
-   node tstnode.js 3000
-And visit your browser at: http://localhost:3000/
+   <pre>node tstnode.js 3000</pre>
+And visit your browser at: <pre>http://localhost:3000/</pre>
 
