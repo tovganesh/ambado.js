@@ -29,7 +29,14 @@ ambado.app(
 	    ] 
 	  }
         ]
-      } 
+      },
+      {
+        nodeType: "template",
+	id: "mytemplate",
+	elements: [
+	  { "url": "html/form.html" }
+	]
+      }
     ] 
   }
 ).run();
