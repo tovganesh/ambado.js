@@ -25,22 +25,31 @@ basket.require(
    window.ambado = {
      _handler: function(handlerType) { 
         var theHandlers = { 
-                    content: this._uiHandler_Content,
-                    form:    this._uiHandler_Form,
-                    text:    this._uiHandler_Text,
-                    button:  this._uiHandler_Button
+                    content:  this._uiHandler_Content,
+                    form:     this._uiHandler_Form,
+                    text:     this._uiHandler_Text,
+                    textarea: this._uiHandler_TextArea,
+                    button:   this._uiHandler_Button,
+		    template: this._uiHandler_Template
                  };
 
         return theHandlers[handlerType];
      },
 
      _uiHandler_Content: function(uiParams, id, obj) {
-       console.log(JSON.stringify(uiParams));
        $('body').html('<div id="' + id + '"></div>');
        for(var idx=0; idx<uiParams.length; idx++) {
          var uiElement = uiParams[idx];
+	 console.log(uiElement["nodeType"]);
          obj._handler(uiElement["nodeType"])(uiElement["elements"], uiElement["id"], id, obj);
        } 
+     },
+
+     _uiHandler_Template: function(uiParams, id, parentID, obj) {
+       obj.require({ url: uiParams[0]["url"] }, function() { 
+         console.log("LOAD " + uiParams[0]["url"]);
+         $('#' + parentID).html($('#' + parentID).html() + " " + basket.get(uiParams[0]["url"]).data);
+       });
      },
 
      _uiHandler_Form: function(uiParams, id, parentID, obj) {
@@ -57,7 +66,13 @@ basket.require(
                                    + '  <lable for="' + id + '">' + uiParams["label"] + '</label>'
 			           + '  <input class="form-control" id="' + id + '" type="text">'
 			           + '</div>');
+     },
 
+     _uiHandler_TextArea: function(uiParams, id, parentID, obj) {
+       $('#' + parentID).html($('#' + parentID).html() + ' <div class="form-group">'
+                                   + '  <lable for="' + id + '">' + uiParams["label"] + '</label>'
+			           + '  <textarea class="form-control" id="' + id + '"></textarea>'
+			           + '</div>');
      },
 
      _uiHandler_Button: function(uiParams, id, parentID, obj) {
@@ -67,6 +82,7 @@ basket.require(
      },
 
      _uiGenerator: function(uiParams) {
+       console.log(JSON.stringify(uiParams));
        this._handler(uiParams["nodeType"])(uiParams["elements"], uiParams["id"], this);
      }, 
 

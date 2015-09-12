@@ -28,6 +28,7 @@ basket.require(
                     content:  this._uiHandler_Content,
                     form:     this._uiHandler_Form,
                     text:     this._uiHandler_Text,
+                    textarea: this._uiHandler_TextArea,
                     button:   this._uiHandler_Button,
 		    template: this._uiHandler_Template
                  };
@@ -65,7 +66,13 @@ basket.require(
                                    + '  <lable for="' + id + '">' + uiParams["label"] + '</label>'
 			           + '  <input class="form-control" id="' + id + '" type="text">'
 			           + '</div>');
+     },
 
+     _uiHandler_TextArea: function(uiParams, id, parentID, obj) {
+       $('#' + parentID).html($('#' + parentID).html() + ' <div class="form-group">'
+                                   + '  <lable for="' + id + '">' + uiParams["label"] + '</label>'
+			           + '  <textarea class="form-control" id="' + id + '"></textarea>'
+			           + '</div>');
      },
 
      _uiHandler_Button: function(uiParams, id, parentID, obj) {
