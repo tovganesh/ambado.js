@@ -22,6 +22,13 @@ ambado.app(
 	    ] 
 	  }, 
           { 
+	    "id": "description", 
+	    "nodeType": "textarea", 
+	    elements: [ 
+	       { "tip": "Tell something about yourself", "label": "Description" } 
+	    ] 
+	  }, 
+          { 
 	    "id": "ok", 
 	    "nodeType": "button", 
 	    elements: [ 
